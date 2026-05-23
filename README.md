@@ -29,7 +29,7 @@ You **do not need a separate agent framework** to try it. Any function can be a 
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/kvik0802/agent-guardian.git
+git clone https://github.com/<your-username>/agent-guardian.git
 cd agent-guardian
 python -m venv .venv
 
@@ -233,6 +233,36 @@ async def search_database(query: str) -> str:
 ```
 
 The agent loop stays the same; Guardian runs on every tool invocation.
+
+---
+
+## Removing `.cursorrules` (optional)
+
+This repo does **not** include a `.cursorrules` file. If you still have one from an older clone or fork, remove it:
+
+**Delete the file**
+
+```bash
+# macOS / Linux
+rm .cursorrules
+
+# Windows (PowerShell)
+Remove-Item .cursorrules
+```
+
+**Remove from Git history on GitHub**
+
+```bash
+git rm .cursorrules
+git commit -m "chore: remove .cursorrules"
+git push origin main
+```
+
+Then pull on any other machine:
+
+```bash
+git pull origin main
+```
 
 ---
 

@@ -9,7 +9,6 @@ description = "Real-time AI safety middleware for autonomous agents"
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
-authors = [{ name = "Agent Guardian Team" }]
 keywords = ["ai", "agents", "safety", "langchain", "openai"]
 classifiers = [
     "Development Status :: 4 - Beta",
