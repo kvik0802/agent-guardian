@@ -236,32 +236,69 @@ The agent loop stays the same; Guardian runs on every tool invocation.
 
 ---
 
-## Removing `.cursorrules` (optional)
+## Removing Agent Guardian
 
-This repo does **not** include a `.cursorrules` file. If you still have one from an older clone or fork, remove it:
+### Uninstall the Python package
 
-**Delete the file**
+If you installed with pip:
+
+```bash
+pip uninstall agent-guardian -y
+```
+
+If you used editable install from a clone:
+
+```bash
+cd agent-guardian
+pip uninstall agent-guardian -y
+```
+
+### Stop running services
+
+Stop the API and dashboard if they are running (Ctrl+C in each terminal), or free the ports:
+
+```powershell
+# Windows — stop processes on ports 8000 and 3000
+Get-NetTCPConnection -LocalPort 8000,3000 -ErrorAction SilentlyContinue |
+  Select-Object -ExpandProperty OwningProcess -Unique |
+  ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue }
+```
 
 ```bash
 # macOS / Linux
-rm .cursorrules
+lsof -ti:8000,3000 | xargs kill -9 2>/dev/null || true
+```
+
+### Remove Docker containers (if used)
+
+```bash
+cd agent-guardian
+docker-compose down -v
+```
+
+### Delete the project folder
+
+```bash
+# macOS / Linux
+rm -rf agent-guardian
 
 # Windows (PowerShell)
-Remove-Item .cursorrules
+Remove-Item -Recurse -Force agent-guardian
 ```
 
-**Remove from Git history on GitHub**
+### Remove from your code
+
+1. Remove `@watch` / `from agent_guardian import watch` from your tools.
+2. Delete `.env` entries for Guardian (`OPENAI_API_KEY`, `SLACK_*`, etc.) if you added them only for this project.
+
+### Remove the GitHub repository
+
+On GitHub: open the repo → **Settings** → scroll to **Danger Zone** → **Delete this repository**, then confirm the repo name.
+
+Or with GitHub CLI:
 
 ```bash
-git rm .cursorrules
-git commit -m "chore: remove .cursorrules"
-git push origin main
-```
-
-Then pull on any other machine:
-
-```bash
-git pull origin main
+gh repo delete <your-username>/agent-guardian --yes
 ```
 
 ---
