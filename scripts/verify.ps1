@@ -1,4 +1,4 @@
-# Full verification: install, test, all demos (no PYTHONPATH needed)
+# Full verification: install, test, quickstart example
 $ErrorActionPreference = "Stop"
 Set-Location $PSScriptRoot\..
 
@@ -12,14 +12,7 @@ Write-Host "==> Running pytest..." -ForegroundColor Cyan
 & $py -m pytest tests/ -q --tb=short
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-Write-Host "==> Demo: Destroyer (must BLOCK)..." -ForegroundColor Cyan
-& $py -c "from agent_guardian.demos import run_destroyer; run_destroyer()"
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-Write-Host "==> Demo: Leaker..." -ForegroundColor Cyan
-& $py -c "from agent_guardian.demos import run_leaker; run_leaker()"
-
-Write-Host "==> Demo: Undo..." -ForegroundColor Cyan
-& $py -c "from agent_guardian.demos import run_undo; run_undo()"
+Write-Host "==> Quickstart example..." -ForegroundColor Cyan
+& $py -c "from agent_guardian.demos import run_quickstart; run_quickstart()"
 
 Write-Host "`nAll verification passed." -ForegroundColor Green

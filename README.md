@@ -4,8 +4,6 @@
 
 I built Agent Guardian to solve a problem I kept running into: AI agents can call tools (delete files, send emails, hit APIs) with no guardrails. One bad step and the damage is done. This project adds a single decorator that intercepts every tool call, scores the risk, simulates dangerous actions, asks for human approval when needed, and supports rollback.
 
-Built for the **Outskill × OpenAI Hackathon** — a shipping competition where the goal is a working product, not slides.
-
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688)](https://fastapi.tiangolo.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -81,17 +79,6 @@ async def main():
         print("Guardian stopped it:", e)
 
 asyncio.run(main())
-```
-
----
-
-## Live demos (hackathon scenarios)
-
-```bash
-python examples/demo_destroyer.py    # Agent tries rm -rf → BLOCKED
-python examples/demo_leaker.py       # PII exfiltration → BLOCKED
-python examples/demo_undo.py         # Bulk email → approve + mock send + rollback
-python examples/quickstart_no_agent.py
 ```
 
 ---
@@ -246,24 +233,6 @@ async def search_database(query: str) -> str:
 ```
 
 The agent loop stays the same; Guardian runs on every tool invocation.
-
----
-
-## Roadmap
-
-- [ ] Deploy dashboard to Vercel
-- [ ] Deploy API to Railway
-- [ ] Publish `pip install agent-guardian` on PyPI
-- [ ] Record demo video (3 attack scenarios)
-
----
-
-## Author
-
-**kvik0802**  
-GitHub: [@kvik0802](https://github.com/kvik0802)
-
-If you use this project, a star on the repo is appreciated.
 
 ---
 

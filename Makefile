@@ -1,4 +1,4 @@
-.PHONY: install test lint dev check-all verify demo-destroyer demo-leaker demo-undo api
+.PHONY: install test lint dev check-all verify quickstart api
 
 install:
 	python -m pip install -e ".[dev]"
@@ -6,7 +6,7 @@ install:
 test:
 	python -m pytest tests/ -x -q --tb=short
 
-verify: install test demo-destroyer demo-leaker demo-undo
+verify: install test quickstart
 	@echo "All verification passed."
 
 lint:
@@ -20,14 +20,8 @@ dev:
 	docker-compose up -d redis
 	uvicorn agent_guardian.api.main:app --reload --port 8000
 
-demo-destroyer:
-	python -c "from agent_guardian.demos import run_destroyer; run_destroyer()"
-
-demo-leaker:
-	python -c "from agent_guardian.demos import run_leaker; run_leaker()"
-
-demo-undo:
-	python -c "from agent_guardian.demos import run_undo; run_undo()"
+quickstart:
+	python -c "from agent_guardian.demos import run_quickstart; run_quickstart()"
 
 check-all: lint test
 	@echo "All checks passed. Ready to ship."

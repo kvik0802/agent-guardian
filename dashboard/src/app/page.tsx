@@ -11,7 +11,6 @@ export default async function HomePage() {
     <main className="min-h-screen">
       <header className="border-b border-slate-800 px-6 py-8">
         <div className="max-w-6xl mx-auto">
-          <p className="text-guardian-accent text-sm font-medium mb-2">Outskill × OpenAI Hackathon</p>
           <h1 className="text-3xl font-bold tracking-tight">
             Agent Guardian
             <span className="text-slate-500 font-normal text-lg ml-3">Live Monitor</span>

@@ -47,9 +47,6 @@ dev = [
 
 [project.scripts]
 guardian-api = "agent_guardian.cli:main"
-guardian-demo-destroyer = "agent_guardian.demos:run_destroyer"
-guardian-demo-leaker = "agent_guardian.demos:run_leaker"
-guardian-demo-undo = "agent_guardian.demos:run_undo"
 guardian-quickstart = "agent_guardian.demos:run_quickstart"
 
 [tool.hatch.build.targets.wheel]
