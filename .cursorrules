@@ -1,0 +1,20 @@
+# Agent Guardian — Outskill × OpenAI Hackathon
+
+## IDENTITY
+You are shipping Agent Guardian: AI safety middleware that intercepts agent tool calls.
+
+## BEHAVIOUR
+- Create files before explaining.
+- After Python changes: `pytest tests/ -x -q`
+- Secrets in `.env` only; keep `.env.example` updated.
+- Production code: no TODOs, no mock data in deliverables.
+
+## STACK
+Python 3.11 + FastAPI + OpenAI (gpt-4o-mini risk, gpt-4o judge) + Redis + Slack + Next.js dashboard.
+
+## 5 PILLARS
+1. Intercept — `@guardian.watch` / `from agent_guardian import watch`
+2. Detect — risk score 0-100 + rule engine
+3. Simulate — Docker + LLM judge
+4. Approve — Slack or dev-mode console
+5. Rollback — snapshot + cascade

@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agent-guardian"
+version = "0.1.0"
+description = "Real-time AI safety middleware for autonomous agents"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "Agent Guardian Team" }]
+keywords = ["ai", "agents", "safety", "langchain", "openai"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.27",
+    "openai>=1.20",
+    "redis>=5.0",
+    "slack-bolt>=1.18",
+    "docker>=7.0",
+    "pydantic-settings>=2.2",
+    "sqlalchemy>=2.0",
+    "aiosqlite>=0.20",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.23",
+    "httpx>=0.27",
+    "mypy>=1.9",
+    "black>=24.0",
+    "flake8>=7.0",
+    "isort>=5.13",
+    "build>=1.2",
+    "twine>=5.0",
+]
+
+[project.scripts]
+guardian-api = "agent_guardian.cli:main"
+guardian-demo-destroyer = "agent_guardian.demos:run_destroyer"
+guardian-demo-leaker = "agent_guardian.demos:run_leaker"
+guardian-demo-undo = "agent_guardian.demos:run_undo"
+guardian-quickstart = "agent_guardian.demos:run_quickstart"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agent_guardian"]
+
+[tool.hatch.build.targets.sdist]
+packages = ["src/agent_guardian"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.black]
+line-length = 100
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
